@@ -1,0 +1,28 @@
+.searchCon {
+    height: 100px;
+}
+
+.searchCon #field{
+    vertical-align: middle;
+    white-space: nowrap;
+
+}
+.icon i{
+    position: absolute;
+    margin-left: 17px;
+    margin-top: 17px;
+    z-index: 1;
+    color: #4f5b66;
+}
+.searchCon #search{
+    height: 50px;
+    width: 300px;
+    background: #ffffff;
+    border: none;
+    font-size: 10pt;
+    color: #000000;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

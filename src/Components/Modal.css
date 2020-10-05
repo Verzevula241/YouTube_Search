@@ -1,0 +1,71 @@
+.modal {
+    visibility: visible; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;/* Full width */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.content {
+    background-color: #fefefe;
+    margin:4em auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.descriptinModal{
+    padding: 5px;
+}
+
+.toggle{
+    float: right;
+    margin: 2em 2em;
+    background: transparent;
+    border: none !important;
+}
+
+.Close{
+    color: #888;
+}
+
+.Close:hover{
+    color: #ffffff;
+}
+
+.actions {
+    background: #eee;
+    display: block;
+}
+
+.iframe-container {
+    overflow: hidden;
+    /* 16:9 aspect ratio */
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.iframe-container iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.toggleBook{
+    background: transparent;
+    float: right;
+    margin: 1em;
+    height: 40px;
+    min-width: 100px;
+    border: none;
+}
+.toggleBook:hover{
+    background: rgba(0, 0, 0, 0.4);
+}
