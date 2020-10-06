@@ -30,16 +30,3 @@ li a {
 li a:hover {
   background-color: #111;
 }
-
-.linkSearch{
-  position: absolute;
-  margin-left: 17px;
-  margin-top: 17px;
-  z-index: 1;
-  color: #4f5b66;
-}
-
-/*.contentMain{*/
-/*  margin-top: 20px;*/
-/*  visibility: visible;*/
-/*}*/

@@ -5,15 +5,11 @@ import {faBookmark as faBookmarkSolid}  from "@fortawesome/free-solid-svg-icons"
 import {faBookmark as faBookmarkRegular} from "@fortawesome/free-regular-svg-icons"
 
 
-export default class VideoDetail extends React.Component {
-
-        state = {
-            flag: false
-        }
-
+export default class Video extends React.Component {
 
 
         render(){
+            console.log("sdf")
             const fl = id =>{
                 if(!localStorage.getItem(id)){
                     return <FontAwesomeIcon icon={faBookmarkRegular} size="3x"/>

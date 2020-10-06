@@ -15,13 +15,42 @@ export default class Videosearch extends React.Component {
         modalData: [],
         loading: false,
         update: false,
+        nextPage: ''
     }
+
+
 
     showModal = e => {
         this.setState({
             show: !this.state.show
         });
     };
+
+    search = async (query) =>{
+        if(query !== ''){
+        await youtube.get('/search', {
+            params: {
+                q: query
+            }
+        }).then(res =>{
+
+            console.log(this.state.loading)
+            this.setState({loading: false})
+
+
+                this.setState({
+                    videos: res.data.items
+                })
+
+
+        })
+}else {this.setState({
+            videos: []
+        })}
+
+
+
+    }
 
     upModal = e =>{
         this.setState(
@@ -65,23 +94,25 @@ export default class Videosearch extends React.Component {
     }
 
     render() {
+
+
         return (
             <div style={{marginTop: "20px"}}>
                 <Search handleFormSubmit={this.handleSubmit}/>
                 <Modal show={this.state.show} data = {this.state.modalData} onClose={this.showModal} update={this.upModal} />
                 {this.state.loading ? <div className="c-loader"/> :
                     this.state.videos.map((video, index) => {
-                    return (
-                        <div key={index} onClick={()=>{this.setState({
-                            show: !this.state.show
-                        });this.dataModal(video)}}>
-                            <Video
-                                key={index}
-                                data = {video}
-                            />
-                        </div>
-                    )
-                })
+                        return (
+                            <div key={index} onClick={()=>{this.setState({
+                                show: !this.state.show
+                            });this.dataModal(video)}}>
+                                <Video
+                                    key={index}
+                                    data = {video}
+                                />
+                            </div>
+                        )
+                    })
 
                 }
             </div>

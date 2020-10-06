@@ -15,9 +15,6 @@ export default class Modal extends React.Component {
         this.props.onClose && this.props.onClose(e);
     };
 
-    update = e =>{
-        this.props.update && this.props.update(e);
-    }
 
     render() {
 
@@ -27,11 +24,16 @@ export default class Modal extends React.Component {
 
         const bookButt = () =>{
             if(localStorage.getItem(this.props.data.id.videoId)){
-                return(<button className="toggleBook" onClick={()=>{localStorage.removeItem(this.props.data.id.videoId); this.setState({bool:!this.state.bool})}}>
+                return(<button className="toggleBook" onClick={()=>{localStorage.removeItem(this.props.data.id.videoId); this.setState({bool:!this.state.bool}); this.props.update()}}>
                     <FontAwesomeIcon icon={faBookmarkSolid}/> Добавлено
                 </button>);
             }else{
-                return(<button className="toggleBook" onClick={()=>{localStorage.setItem(this.props.data.id.videoId,JSON.stringify(this.props.data)); this.setState({bool:!this.state.bool})} }>
+                return(<button className="toggleBook" onClick={()=>{
+                    localStorage.setItem(
+                    this.props.data.id.videoId,JSON.stringify(this.props.data)
+                    );
+                    this.setState({bool:!this.state.bool});
+                    this.props.update()} }>
                     <FontAwesomeIcon icon={faBookmarkRegular}/> Добавить
                 </button>);
             }
