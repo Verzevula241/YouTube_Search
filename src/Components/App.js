@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import '../App.css';
 import Bookmarks from "./Bookmarks";
-import Videosearch from "./Videosearch";
 import {Route, NavLink} from 'react-router-dom'
 import {faBookmark as faBookmarkSolid}  from "@fortawesome/free-solid-svg-icons";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import VideoTitle from "./VideoTitle";
 
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
               </ul>
           </nav>
           <div >
-              <Route path="/search" component={Videosearch} />
+              <Route path="/search" component={VideoTitle} />
               <Route path="/video" component={Bookmarks}  />
           </div>
       </div>
