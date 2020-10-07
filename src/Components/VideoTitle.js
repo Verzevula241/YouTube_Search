@@ -69,7 +69,6 @@ function VideoTitle() {
                 }
             )}
             <div>{loading && <div className="c-loader"/>}</div>
-            {/*<button onClick={()=>{setPageNumber(page)}}>page</button>*/}
         </div>
     )
 }
