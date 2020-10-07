@@ -20,7 +20,7 @@ function VideoTitle() {
 
 
     const observer = useRef()
-    const lastVideoElementRef = useCallback(node => {
+    const lastBookElementRef = useCallback(node => {
         if (loading) return
         if (observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
@@ -54,7 +54,7 @@ function VideoTitle() {
             {
                 videos.map((book, index) => {
                     if (videos.length === index + 1){
-                       return <div ref={lastVideoElementRef} onClick={(e) => handleClick(index)}>
+                       return <div ref={lastBookElementRef} onClick={(e) => handleClick(index)}>
                        <Video
                             key={index}
                             data = {book}
@@ -67,6 +67,7 @@ function VideoTitle() {
                 }
             )}
             <div>{loading && <div className="c-loader"/>}</div>
+            {/*<button onClick={()=>{setPageNumber(page)}}>page</button>*/}
         </>
     )
 }
