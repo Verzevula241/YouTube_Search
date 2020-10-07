@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 export default function useBookSearch(query, pageNumber) {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState('')
     const [error, setError] = useState(false)
     const [books, setBooks] = useState([])
     const [page,setPage] = useState('')

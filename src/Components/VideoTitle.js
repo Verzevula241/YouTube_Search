@@ -3,6 +3,8 @@ import useVideo from "./useVideo";
 import Search from "./Search";
 import Video from "./Video";
 import Modal from "./Modal";
+import './VideoTitle.css'
+
 
 function VideoTitle() {
     const [query, setQuery] = useState('')
