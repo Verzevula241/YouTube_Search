@@ -50,7 +50,7 @@ function VideoTitle() {
     }
 
     return (
-        <>
+        <div style={{marginTop:'2em'}}>
             <Search handleFormSubmit={handleSearch}/>
             <Modal show={show} data = {modalData} onClose={handleClose} update={upModal}/>
             {
@@ -70,7 +70,7 @@ function VideoTitle() {
             )}
             <div>{loading && <div className="c-loader"/>}</div>
             {/*<button onClick={()=>{setPageNumber(page)}}>page</button>*/}
-        </>
+        </div>
     )
 }
 
