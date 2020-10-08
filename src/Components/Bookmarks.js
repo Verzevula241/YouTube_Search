@@ -73,7 +73,6 @@ export default class Bookmarks extends React.Component {
         window.addEventListener('storage', null,this.objBook);
 
 
-        // Logic for displaying current todos
         const indexOfLastVideo = currentPage * videosPerPage;
         const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
         const videoMarks = videos.slice(indexOfFirstVideo, indexOfLastVideo);
@@ -91,7 +90,6 @@ export default class Bookmarks extends React.Component {
         )
         });
 
-        // Logic for displaying page numbers
         const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(videos.length / videosPerPage); i++) {
             pageNumbers.push(i);

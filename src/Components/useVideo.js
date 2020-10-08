@@ -7,7 +7,9 @@ export default function useBookSearch(query, pageNumber) {
     const [error, setError] = useState(false)
     const [books, setBooks] = useState([])
     const [page,setPage] = useState('')
-    const KEY = 'AIzaSyCaJVhCQ5O9cZW_r0JTw7p4FAohl93rfII'
+    // const KEY = 'AIzaSyCaJVhCQ5O9cZW_r0JTw7p4FAohl93rfII'
+    const KEY = 'AIzaSyD-oOzeT-1gMACltZ_V5i11QyryWf4RY2c'
+    
 
     useEffect(() => {
         setBooks([])
