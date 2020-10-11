@@ -4,9 +4,17 @@ import './index.css';
 import App from './Components/App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from "react-router-dom";
+import videoGrab from "./Redux/videoGrab";
+import thunk from "redux-thunk";
+import {applyMiddleware, createStore} from "redux"
+import {Provider} from "react-redux";
+import CombineReducers from "./Redux/CombineReducers";
 
+const store = createStore(CombineReducers,applyMiddleware(thunk))
 
-
+store.subscribe(() => {
+    console.log('Subscribe', store.getState())
+})
 
 const app = (
     <BrowserRouter>
@@ -15,9 +23,11 @@ const app = (
 )
 
 ReactDOM.render(
-  <React.StrictMode>
-      {app}
-  </React.StrictMode>,
+    <Provider store={store}>
+      <React.StrictMode>
+          {app}
+      </React.StrictMode>
+    </Provider>,
   document.getElementById('root')
 );
 

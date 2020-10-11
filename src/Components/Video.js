@@ -9,7 +9,6 @@ export default class Video extends React.Component {
 
 
         render(){
-            console.log("sdf")
             const fl = id =>{
                 if(!localStorage.getItem(id)){
                     return <FontAwesomeIcon icon={faBookmarkRegular} size="3x"/>

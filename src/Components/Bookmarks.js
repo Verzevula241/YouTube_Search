@@ -3,6 +3,9 @@ import "./Bookmarks.css";
 import Video from "./Video";
 import Modal from "./Modal";
 import Ping from "./Ping";
+import {connect} from "react-redux";
+import {videoGrab} from "../Actions/Book";
+import {setModalData, setShow} from "../Actions/Grab";
 
 const val = () => {
 
@@ -17,25 +20,14 @@ const val = () => {
     return values.filter(item => item && item.snippet);
 }
 
-export default class Bookmarks extends React.Component {
+class Bookmarks extends React.Component {
 
 
 
     state = {
-        videos: [],
-        show: false,
-        modalData: [],
-        update: false,
         currentPage: 1,
         videosPerPage: 5
     }
-
-    showModal = e => {
-        this.setState({
-            show: !this.state.show,
-            videos: val()
-        });
-    };
 
     handleClick(event) {
 
@@ -44,44 +36,29 @@ export default class Bookmarks extends React.Component {
         });
     }
 
-    upModal = e =>{
-        this.setState(
-            {update: !this.state.update}
-        )
-    }
-
     objBook = () =>{
-
-        this.setState({videos: val()})
-    }
-
-    dataModal = props =>{
-        this.setState({
-            modalData: props
-        });
+        this.props.setBookData(val())
     }
 
     componentDidMount() {
         this.handleClick = this.handleClick.bind(this);
-        this.setState({videos: val()})
+        this.props.setBookData(val())
     }
 
 
     render() {
 
-        const { videos, currentPage, videosPerPage } = this.state;
+        const { currentPage, videosPerPage } = this.state;
         window.addEventListener('storage', null,this.objBook);
 
 
         const indexOfLastVideo = currentPage * videosPerPage;
         const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-        const videoMarks = videos.slice(indexOfFirstVideo, indexOfLastVideo);
+        const videoMarks = this.props.videos.slice(indexOfFirstVideo, indexOfLastVideo);
 
         const renderTodos = videoMarks.map((video, index) => {
             return (
-                        <div key={index} onClick={()=>{this.setState({
-                            show: !this.state.show
-                        });this.dataModal(video)}}>
+                        <div key={index} onClick={()=>{this.props.setShow();this.props.setModalData(video)}}>
                             <Video
                                 key={index}
                                 data = {video}
@@ -91,7 +68,7 @@ export default class Bookmarks extends React.Component {
         });
 
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(videos.length / videosPerPage); i++) {
+        for (let i = 1; i <= Math.ceil(this.props.videos.length / videosPerPage); i++) {
             pageNumbers.push(i);
         }
 
@@ -108,15 +85,32 @@ export default class Bookmarks extends React.Component {
             );
         });
 
-
+        window.removeEventListener('storage', null,this.objBook);
 
         return(
             <div style={{marginTop: "20px"} } >
                 <Ping update={this.objBook}/>
-                <Modal show={this.state.show} data = {this.state.modalData} onClose={this.showModal} update={this.objBook} />
+                <Modal show={this.props.showMod} data = {this.props.dataModal} onClose={this.props.setShow} update={this.objBook} />
                 {renderTodos}
                 {renderPageNumbers}
             </div>
         );
     }
 }
+
+function mapStateToProps(state){
+    return{
+        videos: state.bookReducer.videos,
+        dataModal: state.videoGrad.dataModal,
+        showMod: state.videoGrad.showMod
+    }
+}
+function mapDispatchToProps(dispatch){
+    return{
+        setBookData: data=>{dispatch(videoGrab(data))},
+        setModalData: data=>{dispatch(setModalData(data))},
+        setShow: ()=>{dispatch(setShow())}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Bookmarks)

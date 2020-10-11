@@ -1,7 +1,13 @@
 import axios from "axios";
-import {CLEAR_VIDEO, GRAB_QUERY, VIDEO_GRAB_START, VIDEO_GRAB_SUCCESS} from "./actionTypes";
-import {useSelector} from "react-redux";
-import {useEffect} from "react";
+import {
+    CLEAR_VIDEO,
+    GRAB_QUERY,
+    SET_DATA_MODAL,
+    SET_SHOW,
+    SET_UPDATE,
+    VIDEO_GRAB_START,
+    VIDEO_GRAB_SUCCESS
+} from "./actionTypes";
 
 
 export function grab(query, page) {
@@ -16,7 +22,7 @@ export function grab(query, page) {
                     q: query,
                     pageToken: page,
                     part: 'snippet',
-                    fields: 'nextPageToken,items(snippet(title))',
+                    fields: 'nextPageToken,pageInfo,items(,id(videoId),snippet(title,thumbnails,publishedAt,description))',
                     type: "video",
                     maxResults: "10",
                     key: 'AIzaSyApCI_3WEfKQPo82XX1UOvMBBjnFrJTAe4'
@@ -41,6 +47,21 @@ export function videoGrabSuccess(videos,page) {
     return {
         type: VIDEO_GRAB_SUCCESS,
         videos,page
+    }
+}
+export function setShow(){
+    return{
+        type: SET_SHOW
+    }
+}
+export function setUpdate(){
+    return{
+        type: SET_UPDATE
+    }
+}
+export function setModalData(data){
+    return{
+        type: SET_DATA_MODAL,data
     }
 }
 export function grabQuery(query) {

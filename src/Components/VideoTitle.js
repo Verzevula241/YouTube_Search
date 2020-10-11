@@ -1,76 +1,84 @@
 import React, {useCallback, useRef, useState} from 'react';
-import useVideo from "./useVideo";
-import Search from "./Search";
-import Video from "./Video";
-import Modal from "./Modal";
 import './VideoTitle.css'
+import {connect} from "react-redux"
+import {clearVideos, grab, setModalData, setShow} from "../Actions/Grab";
+import Search from "./Search";
+import Modal from "./Modal";
+import Video from "./Video";
 
+function VideoTitle(state) {
 
-function VideoTitle() {
-    const [query, setQuery] = useState('')
-    const [pageNumber, setPageNumber] = useState('')
-    const [show,setShow] = useState(false)
-    const [modalData,setModalData] = useState([])
     const [data,setData] = useState(false)
-
-
-    const {
-        videos,
-        page,
-        loading
-    } = useVideo(query, pageNumber)
-
-
     const observer = useRef()
     const lastBookElementRef = useCallback(node => {
-        if (loading) return
+        if (state.loading) return
         if (observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
-                setPageNumber(page)
+                state.getVideos(state.query,state.page)
             }
         })
         if (node) observer.current.observe(node)
-    }, [loading])
+    }, [state.loading])
+
+
+    function handleClick(id) {
+        state.setModalData(state.videos[id])
+        state.setShow()
+    }
 
     function handleSearch() {
-        setQuery(document.getElementById('search').value)
-        setPageNumber('')
-    }
-    function handleClick(id) {
-        setModalData(videos[id])
-        setShow(!show)
-        console.log(show)
+        state.clearVideos()
+        state.getVideos(document.getElementById('search').value,"")
     }
     function upModal(){
         setData(!data)
-    }
-    function handleClose() {
-        setShow(!show)
     }
 
     return (
         <div style={{marginTop:'2em'}}>
             <Search handleFormSubmit={handleSearch}/>
-            <Modal show={show} data = {modalData} onClose={handleClose} update={upModal}/>
+            <Modal show={state.showMod} data = {state.dataModal} onClose={()=>{state.setShow()}} update={upModal}/>
             {
-                videos.map((book, index) => {
-                    if (videos.length === index + 1){
-                       return <div ref={lastBookElementRef} onClick={(e) => handleClick(index)}>
+                state.videos.map((book, index) => {
+                    if (state.videos.length === index + 1){
+                       return <div ref={lastBookElementRef} key={index} onClick={(e) => handleClick(index)}>
                        <Video
                             key={index}
                             data = {book}
                         /></div>
-                    }else return <div onClick={(e) => handleClick(index)}><Video
+                    }else return <div key={index} onClick={(e) => handleClick(index)}><Video
                         key={index}
                         data = {book}
                     /></div>
 
                 }
             )}
-            <div>{loading && <div className="c-loader"/>}</div>
+            <div>{state.loading && <div className="c-loader"/>}</div>
         </div>
     )
+
+
 }
 
-export default VideoTitle;
+function mapStateToProps(state){
+    return{
+        query: state.videoGrad.query,
+        dataModal: state.videoGrad.dataModal,
+        videos: state.videoGrad.videos,
+        page: state.videoGrad.page,
+        loading: state.videoGrad.loading,
+        showMod: state.videoGrad.showMod
+    }
+}
+function mapDispatchToProps(dispatch){
+    return{
+        clearVideos: ()=>{dispatch(clearVideos())},
+        getVideos: (query,page)=> {dispatch(grab(query,page))},
+        setShow: ()=>{dispatch(setShow())},
+        setModalData: data=>{dispatch(setModalData(data))}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(VideoTitle);
+
