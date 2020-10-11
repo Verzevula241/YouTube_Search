@@ -1,0 +1,4 @@
+export const VIDEO_GRAB_START = "VIDEO_GRAB_START"
+export const VIDEO_GRAB_SUCCESS = "VIDEO_GRAB_SUCCESS"
+export const GRAB_QUERY = "GRAB_QUERY"
+export const CLEAR_VIDEO = "CLEAR_VIDEO"
